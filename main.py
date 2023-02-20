@@ -10,31 +10,17 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
 from flask import abort
-import os
-
-from flask_migrate import Migrate
-
-
-# Get the value of the DATABASE_URL environment variable
-database_url = os.environ.get("DATABASE_URL")
-
-# Get the value of the SECRET_KEY environment variable
-secret_key = os.environ.get("SECRET_KEY")
-
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = secret_key
+app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
-
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
-# postgres://blog_with_users_qjgr_user:mWXlcNWLj0GiIdDHymBrL8MAuYG5lIM5@dpg-cfp9l52rrk0fd9sirar0-a.oregon-postgres.render.com/blog_with_users_qjgr
 
 login_manager = LoginManager()
 login_manager.init_app(app)
